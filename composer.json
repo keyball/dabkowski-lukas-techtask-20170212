@@ -1,0 +1,19 @@
+{
+    "require": {
+        "silex/silex": "^2.0",
+        "phpunit/phpunit": "^6.0",
+        "abraham/twitteroauth": "^0.7.2"
+    },
+    "autoload": {
+        "psr-4": {
+          "app\\Http\\Controllers\\": "app/Http/Controllers",
+          "app\\Models\\" : "app/Models",
+          "app\\Tools\\" : "app/Tools",
+          "tests\\" : "tests"
+        }
+    },
+    "require-dev": {
+        "symfony/browser-kit": "^3.2",
+        "symfony/css-selector": "^3.2"
+    }
+}
