@@ -21,15 +21,27 @@ with `vagrant up --provider=virtualbox`.
 If the VM does not start, please ensure that you're using the newest version of VirtualBox.
 Tested on version: 5.0.32 r112930
 
-After installation the address 127.0.0.1:8080 will be available for testing the 
+Installation steps:
+* Login in to the VM with SSH
+* move to directory /var/www/html
+* clone the GitHub repository `git clone https://github.com/keyball/dabkowski-lukas-techtask-20170212.git` into this directory
+* replace the config file /etc/nginx/sites-available/default with ./vagrant/nginx/sites-available/default
+* restart the web server
+* run `composer update` in /var/www/html to get the dependencies
+
+
+After installation the address 127.0.0.1:8080 on the host machine will be available for testing the 
 application with a REST client.
+ 
 
 ###GitHub
 
 Clone the repository from https://github.com/keyball/dabkowski-lukas-techtask-20170212.git to 
 your web root directory. Configure the nginx or Apache to rewrite all requests
 to index.php. Restart the web server. A sample configuration for nginx can be 
-found under vagrant/nginx
+found under vagrant/nginx.
+
+Run `composer update` in /var/www/html to get the dependencies
 
 ##Usage
 Use a REST client to call the /lunch endpoint with the POST method. If no body 
