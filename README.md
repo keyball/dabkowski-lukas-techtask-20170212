@@ -26,7 +26,10 @@ application with a REST client.
 
 ###GitHub
 
-Clone the repository from 
+Clone the repository from https://github.com/keyball/dabkowski-lukas-techtask-20170212.git to 
+your web root directory. Configure the nginx or Apache to rewrite all requests
+to index.php. Restart the web server. A sample configuration for nginx can be 
+found under vagrant/nginx
 
 ##Usage
 Use a REST client to call the /lunch endpoint with the POST method. If no body 
