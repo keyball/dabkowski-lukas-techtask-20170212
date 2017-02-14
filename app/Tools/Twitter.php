@@ -15,33 +15,40 @@ use Abraham\TwitterOAuth\TwitterOAuth;
  *
  * @package app\Tools
  */
-class Twitter {
+class Twitter
+{
 
-  /**
-   * @var TwitterOAuth
-   */
-  protected $twitterLib;
+    /**
+     * @var TwitterOAuth
+     */
+    protected $twitterLib;
 
-  /**
-   * Twitter constructor.
-   *
-   * @param string $consumerKey
-   * @param string $consumerSecret
-   * @param string|null $oAuthToken
-   * @param string|null $oAuthTokenSecret
-   */
-  public function __construct( string $consumerKey, string $consumerSecret, string $oAuthToken = null, string $oAuthTokenSecret = null ) {
-    $this->twitterLib = new TwitterOAuth( $consumerKey, $consumerSecret );
-  }
+    /**
+     * Twitter constructor.
+     *
+     * @param string $consumerKey
+     * @param string $consumerSecret
+     * @param string|null $oAuthToken
+     * @param string|null $oAuthTokenSecret
+     */
+    public function __construct(
+      string $consumerKey,
+      string $consumerSecret,
+      string $oAuthToken = null,
+      string $oAuthTokenSecret = null
+    ) {
+        $this->twitterLib = new TwitterOAuth($consumerKey, $consumerSecret);
+    }
 
-  /**
-   * Updates the status message
-   *
-   * @param string $message
-   */
-  public function updateStatus( string $message ) {
+    /**
+     * Updates the status message
+     *
+     * @param string $message
+     */
+    public function updateStatus(string $message)
+    {
 
-    $this->twitterLib->post( 'statuses/update', [ 'status' => 'Hello there! I will get ' . $message . ' for lunch!' ] );
-  }
+        $this->twitterLib->post('statuses/update', ['status' => 'Hello there! I will get ' . $message . ' for lunch!']);
+    }
 
 }

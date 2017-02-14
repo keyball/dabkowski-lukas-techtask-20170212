@@ -17,15 +17,17 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package app\Http\Controllers
  */
-class UnauthorizedController {
+class UnauthorizedController
+{
 
-  /**
-   * Sends 401
-   *
-   * @return JsonResponse
-   */
-  public function send401() : JsonResponse {
-    return new JsonResponse( [ 'error' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED );
-  }
+    /**
+     * Sends 401
+     *
+     * @return JsonResponse
+     */
+    public function send401() : JsonResponse
+    {
+        return new JsonResponse(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
+    }
 
 }

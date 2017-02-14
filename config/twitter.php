@@ -6,6 +6,6 @@
  */
 
 return [
-  'consumer.key' => 'CONSUMER_KEY',
+  'consumer.key'    => 'CONSUMER_KEY',
   'consumer.secret' => 'CONSUMER_SECRET'
 ];

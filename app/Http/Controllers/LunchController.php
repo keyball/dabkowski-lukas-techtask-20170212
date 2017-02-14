@@ -20,37 +20,40 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @package app\Http\Controllers
  */
-class LunchController {
+class LunchController
+{
 
-  /**
-   * Lunch controllers
-   *
-   * @param Request $request
-   *
-   * @return JsonResponse
-   */
-  public function lunch( Request $request, Application $app ) : JsonResponse {
+    /**
+     * Lunch controllers
+     *
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function lunch(Request $request, Application $app) : JsonResponse
+    {
 
-    $ingredients = [];
+        $ingredients = [];
 
-    $jsonContent = $request->getContent();
+        $jsonContent = $request->getContent();
 
-    if ( !empty( $jsonContent ) ) {
+        if (!empty($jsonContent)) {
 
-      if ( !JsonDataType::isValidJSON( $jsonContent ) ) {
-        return new JsonResponse( [ 'error' => 'The given input is not a JSON string!' ], Response::HTTP_BAD_REQUEST );
-      }
+            if (!JsonDataType::isValidJSON($jsonContent)) {
+                return new JsonResponse(['error' => 'The given input is not a JSON string!'],
+                  Response::HTTP_BAD_REQUEST);
+            }
 
-      $ingredients = JsonDataType::decodeJSON( $jsonContent, true );
+            $ingredients = JsonDataType::decodeJSON($jsonContent, true);
+        }
+
+        $proposals = (new Recipes())->lunchProposals($ingredients);
+
+        $tweet = new Twitter($app[ 'twitter' ][ 'consumer.key' ], $app[ 'twitter' ][ 'consumer.secret' ]);
+        $tweet->updateStatus(implode(' or ', $proposals));
+
+        return new JsonResponse(['Lunch proposals' => $proposals], Response::HTTP_OK);
+
     }
-
-    $proposals = (new Recipes())->lunchProposals( $ingredients );
-
-    $tweet = new Twitter( $app[ 'twitter' ][ 'consumer.key' ], $app[ 'twitter' ][ 'consumer.secret' ] );
-    $tweet->updateStatus( implode( ' or ', $proposals ) );
-
-    return new JsonResponse( [ 'Lunch proposals' => $proposals ], Response::HTTP_OK );
-
-  }
 
 }

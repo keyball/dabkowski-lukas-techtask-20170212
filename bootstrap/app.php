@@ -5,6 +5,8 @@
  * Date: 2017-02-12
  */
 
+define( 'ROOT', __DIR__ . '/../' );
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new Silex\Application();
