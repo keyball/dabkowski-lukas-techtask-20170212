@@ -10,7 +10,10 @@ define( 'ROOT', __DIR__ . '/../' );
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new Silex\Application();
-$app[ 'debug' ] = true;
+
+if (APP_ENV !== 'production') {
+    $app[ 'debug' ] = true;
+}
 
 $app[ 'twitter' ] = require_once __DIR__ . '/../config/twitter.php';
 

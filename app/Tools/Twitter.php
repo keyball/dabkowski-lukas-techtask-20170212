@@ -47,7 +47,6 @@ class Twitter
      */
     public function updateStatus(string $message)
     {
-
         $this->twitterLib->post('statuses/update', ['status' => 'Hello there! I will get ' . $message . ' for lunch!']);
     }
 

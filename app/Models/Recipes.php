@@ -7,18 +7,37 @@
 
 namespace app\Models;
 
-
 use app\Tools\JsonDataType;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
+/**
+ * Class Recipes
+ *
+ * @package app\Models
+ */
 class Recipes
 {
 
+    /**
+     * List of ingredients
+     *
+     * @var array
+     */
     protected $ingredients = [];
 
+    /**
+     * List of recipes
+     *
+     * @var array
+     */
     protected $recipes = [];
 
+    /**
+     * Finder object
+     *
+     * @var Finder
+     */
     protected $finder;
 
     public function __construct()
@@ -37,7 +56,11 @@ class Recipes
     {
 
         if (empty($ingredients)) {
-            $ingredients = $this->getIngredients();
+            $ingredients = $this->getJsonData('ingredients');
+        }
+
+        if (empty( $ingredients[ 'ingredients' ])) {
+            return [];
         }
 
         // can be get via parameters
@@ -54,30 +77,23 @@ class Recipes
             };
         }
 
-        $this->recipes = $this->getRecipes()[ 'recipes' ];
+        $this->recipes = $this->getJsonData('recipes');
+        if (empty($this->recipes['recipes'])) {
+            return [];
+        }
 
         return $this->menuALaCarte();
-
     }
 
     /**
-     * Gets the ingredients
+     * Gets the file contents
      *
-     * @return array
-     */
-    private function getIngredients() : array
-    {
-        return JsonDataType::decodeJSON( $this->getFileContents( 'ingredients' ), true);
-    }
-
-    /**
-     * Gets the recipes
+     * @param string $file
      *
-     * @return array
+     * @return mixed
      */
-    private function getRecipes() : array
-    {
-        return JsonDataType::decodeJSON( $this->getFileContents( 'recipes' ), true);
+    private function getJsonData(string $file) {
+        return JsonDataType::decodeJSON( $this->getFileContents($file), true);
     }
 
     /**
@@ -87,7 +103,6 @@ class Recipes
      */
     private function menuALaCarte() : array
     {
-
         $proposals = [];
 
         foreach ($this->recipes as $recipe) {
@@ -131,7 +146,6 @@ class Recipes
     private function getFileContents( string $filename ) : string
     {
         $contents = '';
-
 
         foreach ($this->finder->name($filename . '.json') as $file) {
 
